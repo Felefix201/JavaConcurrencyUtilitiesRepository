@@ -7,12 +7,40 @@ public class ExampleThree {
     // Gleiche Aufgabe nochmal mit Locks
     // Gleiche Aufgabe nochmal mit Blocking Queue
 
+    IDE3 ide = new IDE3();
+    Runnable r1 = new Runnable() {
+        @Override
+        public void run() {
+            while(true){
+                try {
+                    ide.code();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }}
+    };
+    Runnable r2 = new Runnable() {
+        @Override
+        public void run() {
+            while(true){
+                try {
+                    ide.test();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }}
+    };
+
     public static void main(String[] args) {
+        ExampleOneWaitNotify k = new ExampleOneWaitNotify();
+
+        new Thread(k.r1).start();
+        new Thread(k.r2).start();
 
     }
 
 }
-class IDE2 {
+class IDE3 {
 
     public static void code() throws InterruptedException {
         sc();

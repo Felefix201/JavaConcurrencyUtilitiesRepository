@@ -1,13 +1,15 @@
 package WaitNotifyNotifyAll;
 
-class ExampleOneWaitNotify {
+import java.util.concurrent.Semaphore;
+
+class ExampleOneSemaphore {
 
     // Eine IDE kann maximal 3 mal hintereinander coden, dann muss mindestens 1 test erfolgen, es können beliebig viele tests erfolgen
     // Gleiche Aufgabe nochmal mit Semaphoren
     // Gleiche Aufgabe nochmal mit Locks
     // Gleiche Aufgabe nochmal mit Blocking Queue
 
-    IDE ide = new IDE();
+    IDES1 ide = new IDES1();
 
     Runnable r1 = new Runnable() {
         @Override
@@ -35,25 +37,18 @@ class ExampleOneWaitNotify {
     public static void main(String[] args) {
         ExampleOneWaitNotify k = new ExampleOneWaitNotify();
 
-            new Thread(k.r1).start();
-            new Thread(k.r2).start();
-
+        new Thread(k.r1).start();
+        new Thread(k.r2).start();
     }
+
 }
 
-class IDE {
+class IDES1 {
 
-    private int codeCount = 0;
+    Semaphore code = new Semaphore(3);
 
     public synchronized void code() throws InterruptedException {
-        codeCount++;
-        while (codeCount > 2){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        code.acquire();
         sc();
         Thread.sleep(0500);
         dc();
@@ -63,8 +58,15 @@ class IDE {
         st();
         Thread.sleep(0500);
         dt();
-        notify();
-        codeCount = 0;
+        if (code.availablePermits() == 0) {
+            code.release(3);
+        }
+        else if (code.availablePermits() == 1) {
+            code.release(2);
+        }
+        else if (code.availablePermits() == 2) {
+            code.release(1);
+        }
     }
 
     private static void sc() {
