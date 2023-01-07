@@ -1,13 +1,14 @@
 package WaitNotifyNotifyAll;
 
-public class ExampleTwo {
+public class ExampleTwoWaitNotify {
 
-    // Eine IDE kann maximal 3 mal hintereinander arbeiten, dann muss mindestens 1 test erfolgen, es können max 10 tests erfolgen
+    // Eine IDE kann maximal 3 mal hintereinander arbeiten, dann muss mindestens 1 test erfolgen, es können max 5 tests erfolgen
     // Gleiche Aufgabe nochmal mit Semaphoren
     // Gleiche Aufgabe nochmal mit Locks
     // Gleiche Aufgabe nochmal mit Blocking Queue
 
     IDE2 ide = new IDE2();
+
     Runnable r1 = new Runnable() {
         @Override
         public void run() {
@@ -32,7 +33,7 @@ public class ExampleTwo {
     };
 
     public static void main(String[] args) {
-        ExampleOneWaitNotify k = new ExampleOneWaitNotify();
+        ExampleTwoWaitNotify k = new ExampleTwoWaitNotify();
 
         new Thread(k.r1).start();
         new Thread(k.r2).start();
@@ -42,16 +43,31 @@ public class ExampleTwo {
 }
 class IDE2 {
 
-    public static void code() throws InterruptedException {
+    private int codeCount = 0;
+    private int testCount = 0;
+
+    public synchronized void code() throws InterruptedException {
+        codeCount++;
+        while(codeCount > 2){
+            wait();
+        }
         sc();
-        Thread.sleep(1000);
+        Thread.sleep(0500);
         dc();
+        testCount = 0;
+        notifyAll();
     }
 
-    public static void test () throws InterruptedException {
+    public synchronized void test () throws InterruptedException {
+        testCount++;
+        while(testCount > 4){
+            wait();
+        }
         st();
-        Thread.sleep(1000);
+        Thread.sleep(0500);
         dt();
+        codeCount = 0;
+        notifyAll();
     }
 
     private static void sc() {
