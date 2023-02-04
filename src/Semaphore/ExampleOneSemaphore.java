@@ -1,70 +1,63 @@
-package WaitNotifyNotifyAll;
+package Semaphore;
 
-public class ExampleTwoWaitNotify {
+import java.util.concurrent.Semaphore;
 
-    // Eine IDE kann maximal 3 mal hintereinander arbeiten, dann muss mindestens 1 test erfolgen, es können max 5 tests erfolgen, dann muss gecodet werden
+class ExampleOneSemaphore {
 
-    IDE2 ide = new IDE2();
+    IDES1 ide = new IDES1();
 
     Runnable r1 = new Runnable() {
         @Override
         public void run() {
-            while(true){
+            while (true) {
                 try {
                     ide.code();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }}
+            }
+        }
     };
     Runnable r2 = new Runnable() {
         @Override
         public void run() {
-            while(true){
+            while (true) {
                 try {
                     ide.test();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }}
+            }
+        }
     };
 
     public static void main(String[] args) {
-        ExampleTwoWaitNotify k = new ExampleTwoWaitNotify();
+        ExampleOneSemaphore k = new ExampleOneSemaphore();
 
         new Thread(k.r1).start();
         new Thread(k.r2).start();
-
     }
-
 }
-class IDE2 {
 
-    private int codeCount = 0;
-    private int testCount = 0;
+class IDES1 {
 
-    public synchronized void code() throws InterruptedException {
-        codeCount++;
-        while(codeCount > 2){
-            wait();
-        }
+    Semaphore code = new Semaphore(3);
+    Semaphore test = new Semaphore(0);
+
+    public void code() throws InterruptedException {
+        code.acquire();
         sc();
         Thread.sleep(0500);
         dc();
-        testCount = 0;
-        notifyAll();
+        test.release();
     }
 
-    public synchronized void test () throws InterruptedException {
-        testCount++;
-        while(testCount > 4){
-            wait();
-        }
+    public void test() throws InterruptedException {
+        test.acquire(3);
         st();
         Thread.sleep(0500);
         dt();
-        codeCount = 0;
-        notifyAll();
+        code.release(3);
     }
 
     private static void sc() {

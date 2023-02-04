@@ -1,57 +1,67 @@
-package WaitNotifyNotifyAll;
+package Semaphore;
 
-public class ExampleThree {
+import java.util.concurrent.Semaphore;
 
-    // Eine IDE kann beliebig oft hintereinander arbeiten, dann muss abschließend mindestens 1 test erfolgen, es können beliebig viele tests erfolgen
-    // Gleiche Aufgabe nochmal mit Semaphoren
-    // Gleiche Aufgabe nochmal mit Locks
-    // Gleiche Aufgabe nochmal mit Blocking Queue
+class ExampleTwoSemaphore {
 
-    IDE3 ide = new IDE3();
+    IDES2 ide = new IDES2();
+
     Runnable r1 = new Runnable() {
         @Override
         public void run() {
-            while(true){
+            while (true) {
                 try {
                     ide.code();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }}
+            }
+        }
     };
     Runnable r2 = new Runnable() {
         @Override
         public void run() {
-            while(true){
+            while (true) {
                 try {
                     ide.test();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }}
+            }
+        }
     };
 
     public static void main(String[] args) {
-        ExampleOneWaitNotify k = new ExampleOneWaitNotify();
+        ExampleOneSemaphore k = new ExampleOneSemaphore();
 
         new Thread(k.r1).start();
         new Thread(k.r2).start();
-
     }
-
 }
-class IDE3 {
 
-    public static void code() throws InterruptedException {
+class IDES2 {
+
+    Semaphore code = new Semaphore(3);
+    Semaphore test = new Semaphore(1);
+    public void code() throws InterruptedException {
+        code.acquire();
+        test.acquire();
         sc();
-        Thread.sleep(1000);
+        Thread.sleep(0500);
         dc();
+        test.release();
     }
 
-    public static void test () throws InterruptedException {
+    public void test() throws InterruptedException {
+        test.acquire();
         st();
-        Thread.sleep(1000);
+        Thread.sleep(0500);
         dt();
+        if(code.availablePermits() == 0){
+            code.release(3);
+
+        }
+        test.release();
     }
 
     private static void sc() {
