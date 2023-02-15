@@ -2,7 +2,7 @@ package WaitNotifyNotifyAll;
 
 public class ExampleThreeWaitNotify {
 
-    // Code genau 5 mal und teste dann 5 mal
+    // Code genau 2 mal und teste dann 4 mal
 
     IDE3 ide = new IDE3();
 
@@ -44,35 +44,35 @@ class IDE3 {
     private int testCount = 0;
 
     public synchronized void code() throws InterruptedException {
-        codeCount++;
-        while(codeCount > 4){
+        while(codeCount >= 2){
             wait();
         }
+        codeCount++;
         sc();
         Thread.sleep(0500);
         dc();
-        if(codeCount == 4){
+        if(codeCount == 2){
             testCount = 0;
             notifyAll();
         }
     }
 
     public synchronized void test () throws InterruptedException {
-        testCount++;
-        while(testCount > 4 || codeCount < 4){
+        while(testCount > 3 || codeCount < 2){
             wait();
         }
+        testCount++;
         st();
         Thread.sleep(0500);
         dt();
-        if(testCount == 4) {
+        if(testCount == 3) {
             codeCount = 0;
             notifyAll();
         }
     }
 
     private static void sc() {
-        System.out.println("Start coding");
+        System.out.println("Start coding........................");
     }
 
     private static void dc() {

@@ -1,10 +1,10 @@
 package WaitNotifyNotifyAll;
 
-public class ExampleTwoWaitNotify {
+public class ExampleForeWaitNotify {
 
-    // Eine IDE kann maximal 3 mal hintereinander arbeiten, dann muss mindestens 1 test erfolgen, es können max 5 tests erfolgen, dann muss gecodet werden
+    // Code genau 2 mal und teste dann beliebig oft
 
-    IDE2 ide = new IDE2();
+    IDE4 ide = new IDE4();
 
     Runnable r1 = new Runnable() {
         @Override
@@ -30,7 +30,7 @@ public class ExampleTwoWaitNotify {
     };
 
     public static void main(String[] args) {
-        ExampleTwoWaitNotify k = new ExampleTwoWaitNotify();
+        ExampleForeWaitNotify k = new ExampleForeWaitNotify();
 
         new Thread(k.r1).start();
         new Thread(k.r2).start();
@@ -38,26 +38,30 @@ public class ExampleTwoWaitNotify {
     }
 
 }
-class IDE2 {
+class IDE4 {
 
     private int codeCount = 0;
-    private int testCount = 0;
+    private boolean testPossible = false;
 
+    // Code genau 2 mal
     public synchronized void code() throws InterruptedException {
-        codeCount++;
-        while(codeCount > 2){
+        while(codeCount >= 2){
             wait();
         }
+        codeCount++;
+        testPossible = false;
         sc();
         Thread.sleep(0500);
         dc();
-        testCount = 0;
-        notifyAll();
-    }
+        if (codeCount == 2){
+            testPossible = true;
+            notifyAll();
+        }
 
+    }
+    // Teste beliebig oft
     public synchronized void test () throws InterruptedException {
-        testCount++;
-        while(testCount > 4){
+        while(!testPossible){
             wait();
         }
         st();
@@ -68,7 +72,7 @@ class IDE2 {
     }
 
     private static void sc() {
-        System.out.println("Start coding...........................");
+        System.out.println("Start coding...................");
     }
 
     private static void dc() {

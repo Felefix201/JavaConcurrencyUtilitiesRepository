@@ -48,11 +48,7 @@ class IDE {
     public synchronized void code() throws InterruptedException {
         codeCount++;
         while (codeCount > 2){
-            try {
                 wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
         sc();
         Thread.sleep(0500);
@@ -68,7 +64,7 @@ class IDE {
     }
 
     private static void sc() {
-        System.out.println("Start coding");
+        System.out.println("Start coding............................................");
     }
 
     private static void dc() {
