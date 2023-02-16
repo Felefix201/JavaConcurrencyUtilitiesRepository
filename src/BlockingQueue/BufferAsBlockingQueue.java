@@ -8,12 +8,11 @@ public class BufferAsBlockingQueue {
 
     private BlockingQueue<Integer> dataQueue;
 
-    public BufferAsBlockingQueue(int maxDataQueue) {
-        dataQueue = new LinkedBlockingQueue<>(maxDataQueue);
+    public BufferAsBlockingQueue(int size) {
+        dataQueue = new LinkedBlockingQueue<>(size);
     }
 
     public synchronized void put(int data) throws InterruptedException {
-        System.out.println("Producer wants to put " + data);
         while (dataQueue.remainingCapacity() == 0) {
             wait();
         }

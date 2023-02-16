@@ -14,17 +14,21 @@ public class ParkingLot {
     }
 
     public synchronized void enter(Car car) throws InterruptedException {
-        while(cars.size() == maxPlaces){
+        while(cars.remainingCapacity() == 0){
             wait();
         }
         cars.put(car);
         System.out.println(car.getName() + " entered the parking lot. " + (maxPlaces - cars.size()) + " places left.");
+        notifyAll();
     }
 
     public synchronized void leave() {
-        cars.poll();
-        System.out.println("A car left the parking lot. " + (maxPlaces - cars.size()) + " places left.");
-        notifyAll();
+        try {
+            cars.poll();
+            System.out.println("A car left the parking lot. " + (maxPlaces - cars.size()) + " places left.");
+        } finally {
+            notifyAll();
+        }
     }
 
     public static void main(String[] args) {
@@ -47,23 +51,18 @@ class Car extends Thread {
 
     @Override
     public void run() {
-        long time = System.nanoTime();
-
         try {
             parkingLot.enter(this);
         } catch (InterruptedException e) {
             System.out.println("An error while entering has occured");
         }
-
         try {
-            Thread.sleep((long)(Math.random() * 5000 + 5000));
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             System.out.println("An error while thread sleeping has occured");
         }
-
             parkingLot.leave();
 
-        System.out.println(this.getName() + " has been in the parking lot for " + (System.nanoTime() - time) / 1000000 + " milliseconds.");
     }
 }
 

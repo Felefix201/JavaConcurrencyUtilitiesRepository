@@ -2,7 +2,7 @@ package WaitNotifyNotifyAll;
 
 public class ExampleThreeWaitNotify {
 
-    // Code genau 2 mal und teste dann 4 mal
+    // Code genau 2 mal und teste dann genau 3 mal
 
     IDE3 ide = new IDE3();
 

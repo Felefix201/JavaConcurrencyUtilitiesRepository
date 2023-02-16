@@ -44,10 +44,10 @@ class IDE2 {
     private int testCount = 0;
 
     public synchronized void code() throws InterruptedException {
-        codeCount++;
         while(codeCount > 2){
             wait();
         }
+        codeCount++;
         sc();
         Thread.sleep(0500);
         dc();
@@ -56,10 +56,10 @@ class IDE2 {
     }
 
     public synchronized void test () throws InterruptedException {
-        testCount++;
         while(testCount > 4){
             wait();
         }
+        testCount++;
         st();
         Thread.sleep(0500);
         dt();

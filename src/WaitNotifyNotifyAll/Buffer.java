@@ -14,12 +14,11 @@ public class Buffer {
     }
 
     public synchronized void put(int data) throws InterruptedException {
-        System.out.println("Producer wants to put " + data);
         while (full) {
             wait();
         }
         this.data = data;
-        System.out.println("Produced: " + data);
+        System.out.println("Produced: " + data + "...................................");
         full = true;
         notifyAll();
     }
@@ -43,7 +42,7 @@ public class Buffer {
         consumer.start();
 
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

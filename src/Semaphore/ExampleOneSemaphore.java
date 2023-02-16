@@ -43,7 +43,7 @@ class IDES1 {
 
     Semaphore code = new Semaphore(3);
     Semaphore test = new Semaphore(0);
-
+    // 1-3 mal coden
     public void code() throws InterruptedException {
         code.acquire();
         sc();
@@ -51,7 +51,7 @@ class IDES1 {
         dc();
         test.release();
     }
-
+    // genau 1 test
     public void test() throws InterruptedException {
         test.acquire(3);
         st();

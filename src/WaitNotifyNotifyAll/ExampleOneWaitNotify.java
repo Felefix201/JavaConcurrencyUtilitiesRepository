@@ -37,7 +37,6 @@ class ExampleOneWaitNotify {
 
             new Thread(k.r1).start();
             new Thread(k.r2).start();
-
     }
 }
 
@@ -46,10 +45,10 @@ class IDE {
     private int codeCount = 0;
 
     public synchronized void code() throws InterruptedException {
-        codeCount++;
         while (codeCount > 2){
-                wait();
+            wait();
         }
+        codeCount++;
         sc();
         Thread.sleep(0500);
         dc();
