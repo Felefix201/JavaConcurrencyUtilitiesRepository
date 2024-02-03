@@ -1,9 +1,16 @@
 package WaitNotifyNotifyAll;
 
-public class ExampleForeWaitNotify {
 
-    // Code genau 2 mal und teste dann beliebig oft
-
+/**
+ * This class is an example for the usage of wait and notifyAll.
+ * The IDE4 class has two methods code and test. The code method can be called exactly 2 times before the test
+ * method can be called.
+ * The test method can be called as often as you want, but only if the code method has been called exactly 2 times.
+ * The code method is synchronized and the test method is synchronized. The code method has a while loop that checks
+ * if the codeCount is greater or equal to 2.
+ * If this is the case, the thread waits. The test method has a while loop that checks if the testPossible is false.
+ */
+public class ExampleForWaitNotify {
     IDE4 ide = new IDE4();
 
     Runnable r1 = new Runnable() {
@@ -30,7 +37,7 @@ public class ExampleForeWaitNotify {
     };
 
     public static void main(String[] args) {
-        ExampleForeWaitNotify k = new ExampleForeWaitNotify();
+        ExampleForWaitNotify k = new ExampleForWaitNotify();
 
         new Thread(k.r1).start();
         new Thread(k.r2).start();
@@ -43,7 +50,7 @@ class IDE4 {
     private int codeCount = 0;
     private boolean testPossible = false;
 
-    // Code genau 2 mal
+    // code exactly 2 times
     public synchronized void code() throws InterruptedException {
         while(codeCount >= 2){
             wait();
@@ -59,7 +66,7 @@ class IDE4 {
         }
 
     }
-    // Teste beliebig oft
+    // test as often as you want
     public synchronized void test () throws InterruptedException {
         while(!testPossible){
             wait();

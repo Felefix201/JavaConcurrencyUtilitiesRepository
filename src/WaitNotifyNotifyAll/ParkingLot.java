@@ -1,9 +1,14 @@
 package WaitNotifyNotifyAll;
 
+/**
+ * This class represents a parking lot with a certain number of places.
+ * The parking lot is a shared resource and the cars are the threads.
+ * The parking lot has a synchronized method enter() and a synchronized method leave().
+ * The enter() method is synchronized and the leave() method is synchronized.
+ * The enter() method is synchronized because the cars are trying to enter the parking lot at the same time.
+ * The leave() method is synchronized because the cars are trying to leave the parking lot at the same time.
+ */
 public class ParkingLot {
-    // Parkhaus aufgabe
-    // Ein Parkhaus hat 8 Plätze, es möchten 20 Autos hinein fahren, ein Auto bleibt 5 - 10 sekunden im Parkhaus
-
     private int availablePlaces;
 
     public ParkingLot(int places) {

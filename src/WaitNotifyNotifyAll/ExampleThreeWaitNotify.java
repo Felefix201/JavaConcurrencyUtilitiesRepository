@@ -1,9 +1,10 @@
 package WaitNotifyNotifyAll;
 
+
+/**
+ * Code exactly 2 times and then test exactly 3 times
+ */
 public class ExampleThreeWaitNotify {
-
-    // Code genau 2 mal und teste dann genau 3 mal
-
     IDE3 ide = new IDE3();
 
     Runnable r1 = new Runnable() {

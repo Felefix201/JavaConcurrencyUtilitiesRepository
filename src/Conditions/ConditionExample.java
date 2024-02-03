@@ -4,10 +4,16 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ConditionExample {
 
-    private Lock lock = new ReentrantLock();
-    private Condition condition = lock.newCondition();
+/**
+ * ConditionExample which demonstrates the usage of the Condition interface.
+ * The Condition interface is used to provide a condition for a Lock object.
+ * The condition is used to block a thread until a certain condition is met.
+ * The condition is used to signal a thread that a certain condition is met.
+ */
+public class ConditionExample {
+    private final Lock lock = new ReentrantLock();
+    private final Condition condition = lock.newCondition();
     private int dataAvailable = 0;
 
     public void produceData() throws InterruptedException {

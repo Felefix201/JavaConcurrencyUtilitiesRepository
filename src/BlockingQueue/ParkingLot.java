@@ -3,10 +3,16 @@ package BlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class ParkingLot {
 
-    private BlockingQueue<Car> cars;
-    private int maxPlaces;
+/**
+ * A parking lot has a limited number of places. Cars can enter and leave the parking lot.
+ * When the parking lot is full, cars have to wait until a place becomes available.
+ * When a car leaves the parking lot, it notifies the waiting cars that a place has become available.
+ * Create a ParkingLot class with methods enter and leave.
+ */
+public class ParkingLot {
+    private final BlockingQueue<Car> cars;
+    private final int maxPlaces;
 
     public ParkingLot(int maxPlaces) {
         this.maxPlaces = maxPlaces;
@@ -40,9 +46,15 @@ public class ParkingLot {
     }
 }
 
-class Car extends Thread {
 
-    private ParkingLot parkingLot;
+/**
+ * A car enters the parking lot and leaves after a while.
+ * The car waits if the parking lot is full.
+ * The parking lot notifies the waiting cars when a place becomes available.
+ * The parking lot has a limited number of places.
+ */
+class Car extends Thread {
+    private final ParkingLot parkingLot;
 
     public Car(ParkingLot parkingLot, String name) {
         super(name);

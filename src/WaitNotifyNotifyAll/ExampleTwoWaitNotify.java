@@ -1,9 +1,11 @@
 package WaitNotifyNotifyAll;
 
+
+/**
+ * IDE can code and test, but it can only code 3 times in a row, then it has to test at least once, and it can only
+ * test 5 times in a row, then it has to code at least once.
+ */
 public class ExampleTwoWaitNotify {
-
-    // Eine IDE kann maximal 3 mal hintereinander arbeiten, dann muss mindestens 1 test erfolgen, es können max 5 tests erfolgen, dann muss gecodet werden
-
     IDE2 ide = new IDE2();
 
     Runnable r1 = new Runnable() {

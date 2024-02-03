@@ -1,22 +1,31 @@
 package Semaphore;
 
+
+/**
+ * SemaphoreWithinMain is a class that demonstrates the use of a binary semaphore within the main method.
+ * The main method creates a binary semaphore and starts three threads. The first thread simulates the
+ * taking of an order, the second thread simulates the ordering of the order and the third thread simulates
+ * the storage of the order. The first thread releases the binary semaphore after the order has been taken.
+ * The second thread acquires the binary semaphore and releases it after the order has been placed. The third
+ * thread acquires the binary semaphore and releases it after the order has been stored.
+ */
 public class SemaphoreWithinMain {
 
     //private static BinarySemaphore bestellungAufnehmen = new BinarySemaphore();
-    private static BinarySemaphore bestellungOrdern = new BinarySemaphore();
-    private static BinarySemaphore bestellungEinlagern = new BinarySemaphore();
+    private static BinarySemaphore purchaseOrdering = new BinarySemaphore();
+    private static BinarySemaphore storePurchasedGoods = new BinarySemaphore();
 
     public static void main(String[] args) {
         new Thread (() -> {
-            System.out.println("Bestellung wurde aufgenommen");
-            bestellungOrdern.release();
+            System.out.println("purchase order taken");
+            purchaseOrdering.release();
         }).start();
 
         new Thread (() -> {
             try{
-                bestellungOrdern.acquire();
-                System.out.println("Bestellung wurde aufgegeben");
-                bestellungEinlagern.release();
+                purchaseOrdering.acquire();
+                System.out.println("purchase order placed");
+                storePurchasedGoods.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -24,8 +33,8 @@ public class SemaphoreWithinMain {
 
         new Thread (() -> {
             try{
-                bestellungEinlagern.acquire();
-                System.out.println("Bestellung wurde eingelagert");
+                storePurchasedGoods.acquire();
+                System.out.println("purchase order stored");
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

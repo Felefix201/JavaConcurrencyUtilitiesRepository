@@ -1,7 +1,12 @@
 package Lock;
 
-public class SimpleLock {
 
+/**
+ * SimpleLock is a simple implementation of a lock. It is not reentrant and does not support
+ * multiple locks by the same thread. It is only intended to demonstrate the basic concepts of
+ * a lock.
+ */
+public class SimpleLock {
     private boolean isLocked = false;
     private Thread lockingThread;
 
@@ -40,7 +45,7 @@ public class SimpleLock {
             }
         });
 
-        Thread thread2 = new Thread(() -> {     // Als Lambda Ausdruck
+        Thread thread2 = new Thread(() -> {     // Example as Lambda Expression
             try {
                 try {
                     System.out.println("Thread 2: Trying to acquire lock");

@@ -3,8 +3,12 @@ package Semaphore;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
+/**
+ * Example with two semaphores
+ * 1. Semaphore for coding
+ * 2. Semaphore for testing
+ */
 class ExampleTwoSemaphore {
-
     IDES2 ide = new IDES2();
 
     Runnable r1 = new Runnable() {
@@ -44,7 +48,7 @@ class IDES2 {
 
     Semaphore code = new Semaphore(4);
     Semaphore test = new Semaphore(0);
-    // genau 4 mal coden
+    // exactly 4 times coding
     public void code() throws InterruptedException {
         code.acquire();
         sc();
@@ -68,7 +72,7 @@ class IDES2 {
     }
 
 
-//    Funktioniert wundervoll aber musste zum testen vom anderen code auskommentiert werden
+//    Works fine but needs to be out commented to test the other functions
 //    Semaphore code = new Semaphore(3);
 //    Semaphore test = new Semaphore(1);
 //    // 1 - 3 mal coden

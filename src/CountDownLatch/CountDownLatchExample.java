@@ -2,6 +2,11 @@ package CountDownLatch;
 
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * CountDownLatchExample which demonstrates the usage of the CountDownLatch class.
+ * The CountDownLatch class is used to block a thread until a certain number of tasks are completed.
+ * The CountDownLatch class is used to signal a thread that a certain number of tasks are completed.
+ */
 public class CountDownLatchExample {
 
     public static void main(String[] args) throws InterruptedException {

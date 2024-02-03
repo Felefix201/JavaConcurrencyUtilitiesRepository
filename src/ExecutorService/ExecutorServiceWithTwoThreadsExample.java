@@ -5,6 +5,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+
+/**
+ * ExecutorServiceWithTwoThreadsExample class demonstrates how to create an ExecutorService with two threads and
+ * submit two tasks to the ExecutorService.
+ * The ExecutorService will execute the tasks using the two threads.
+ * The main thread waits for the tasks to complete and then prints the results.
+ * The ExecutorService is shut down after the tasks are completed.
+ */
 public class ExecutorServiceWithTwoThreadsExample {
     public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newFixedThreadPool(2);

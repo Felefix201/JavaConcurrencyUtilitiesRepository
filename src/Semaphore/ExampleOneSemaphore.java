@@ -2,8 +2,12 @@ package Semaphore;
 
 import java.util.concurrent.Semaphore;
 
-class ExampleOneSemaphore {
 
+/**
+ * Semaphore is a class in java.util.concurrent package which provides the facility of controlling the number of
+ * threads that can access a resource.
+ */
+class ExampleOneSemaphore {
     IDES1 ide = new IDES1();
 
     Runnable r1 = new Runnable() {
@@ -40,10 +44,9 @@ class ExampleOneSemaphore {
 }
 
 class IDES1 {
-
     Semaphore code = new Semaphore(3);
     Semaphore test = new Semaphore(0);
-    // 1-3 mal coden
+    // 1-3 times coden
     public void code() throws InterruptedException {
         code.acquire();
         sc();

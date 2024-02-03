@@ -2,9 +2,21 @@ package GenerischeArrayBlockingQueue;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
+
+/**
+ * This class demonstrates the use of ArrayBlockingQueue with a generic type.
+ * The ArrayBlockingQueue is a bounded blocking queue that stores the elements internally in an array.
+ * It is a thread-safe queue and implements the BlockingQueue interface.
+ * The ArrayBlockingQueue is a bounded queue, which means it has a fixed size.
+ * Once the queue is full, any attempt to add an element to the queue will block the thread until the queue has
+ * space to store the element.
+ * Similarly, if the queue is empty, any attempt to remove an element from the queue will block the thread until
+ * the queue has an element to remove.
+ * The ArrayBlockingQueue is a good choice when you need a bounded blocking queue.
+ */
 public class GenericArrayBlockingQueueExample {
     private static class Producer implements Runnable {
-        private ArrayBlockingQueue<String> queue;
+        private final ArrayBlockingQueue<String> queue;
         public Producer(ArrayBlockingQueue<String> queue) {
             this.queue = queue;
         }
@@ -21,7 +33,7 @@ public class GenericArrayBlockingQueueExample {
         }
     }
     private static class Consumer implements Runnable {
-        private ArrayBlockingQueue<String> queue;
+        private final ArrayBlockingQueue<String> queue;
         public Consumer(ArrayBlockingQueue<String> queue) {
             this.queue = queue;
         }

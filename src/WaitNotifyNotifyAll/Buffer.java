@@ -2,8 +2,11 @@ package WaitNotifyNotifyAll;
 
 import java.util.Random;
 
-public class Buffer {
 
+/**
+ * Producer-Consumer problem using wait and notifyAll
+ */
+public class Buffer {
     private int data;
     private boolean full = false;   //Flag
 
@@ -13,6 +16,7 @@ public class Buffer {
         }
     }
 
+    // Synchronized methods to put and get data
     public synchronized void put(int data) throws InterruptedException {
         while (full) {
             wait();
@@ -54,7 +58,7 @@ public class Buffer {
 
 class Producer1 extends Thread {
 
-    private Buffer buffer;
+    private final Buffer buffer;
 
     public Producer1(Buffer buffer) {
         this.buffer = buffer;

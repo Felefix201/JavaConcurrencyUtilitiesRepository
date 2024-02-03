@@ -1,12 +1,11 @@
 package WaitNotifyNotifyAll;
 
+
+/**
+ * One IDE can code and test at the same time. But it can only code 3 times in a row, then it has to test once.
+ * After testing, it can code 3 times again.
+ */
 class ExampleOneWaitNotify {
-
-    // Eine IDE kann maximal 3 mal hintereinander coden, dann muss mindestens 1 test erfolgen, es können beliebig viele tests erfolgen
-    // Gleiche Aufgabe nochmal mit Semaphoren
-    // Gleiche Aufgabe nochmal mit Locks
-    // Gleiche Aufgabe nochmal mit Blocking Queue
-
     IDE ide = new IDE();
 
     Runnable r1 = new Runnable() {
@@ -112,6 +111,7 @@ class IDE {
 //    }
 //}
 //
+
 //class IDE {
 //
 //    public static void code() throws InterruptedException {
